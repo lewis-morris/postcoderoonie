@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block headscript %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="container-fluid height">
+            <div class="row h-100 mt-3">
+                <div class="col-md-9 border border-dark border-rounded shadow  min_height_content main_tab_content">
+                    <div class="tab-content" id="tab_content">
+                        <div class="tab-pane fade show active" id="getting_started" role="tabpanel"
+                             aria-labelledby="home-tab">
+                            {% include "partials/getting-started.html" %}
+                        </div>
+                        <div class="tab-pane fade" id="postcode" role="tabpanel" aria-labelledby="postcode-tab">
+                            {% include "partials/postcode.html" %}
+                        </div>
+                        <div class="tab-pane fade" id="postcodes" role="tabpanel" aria-labelledby="postcodes-tab">
+                            {% include "partials/postcodes.html" %}
+                        </div>
+                        <div class="tab-pane fade" id="lat-long" role="tabpanel" aria-labelledby="lat-long-tab">...
+                        </div>
+                        <div class="tab-pane fade" id="salary" role="tabpanel" aria-labelledby="salary-tab">
+                            {% include "partials/salary.html" %}
+                        </div>
+                        <div class="tab-pane fade" id="population" role="tabpanel" aria-labelledby="population-tab">
+                            ...
+                        </div>
+                        <div class="tab-pane fade" id="errors" role="tabpanel" aria-labelledby="errors-tab">...</div>
+                        <div class="tab-pane fade" id="extras" role="tabpanel" aria-labelledby="extras-tab">...</div>
+                    </div>
+                </div>
+                <div class="col-md-auto min_height_content d-none d-md-block">
+                    <div class="d-flex sticky_nav p-2 border border-dark shadow">
+                        {% include "partials/nav.html" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block endimport %}
+{% endblock %}
+{% block endscript %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

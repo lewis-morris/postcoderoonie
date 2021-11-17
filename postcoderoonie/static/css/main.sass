@@ -1,0 +1,238 @@
+$background: #C9CBA3
+$main_text: #362c28
+$h1_colour: #153131
+$h2_colour: #E26D5C
+$postcoderoonie: #153131
+$postcodecol: #e4d6a6
+kbd
+	padding: 0.2rem 0.4rem
+	font-size: .875em
+	color: #fff
+	background-color: #472d30
+	border-radius: 3rem
+	margin-left: 0.25rem
+	margin-right: 0.25rem
+body, html
+	font-family: 'Rubik', sans-serif
+	line-break: loose
+	background: $background
+	color: $main_text
+
+.postcoderoonie
+	padding: 0.2rem 0.4rem
+	font-size: 1.3em
+	background-color: $postcoderoonie
+	color: $postcodecol
+	margin-left: 0.25rem
+	margin-right: 0.25rem
+	font-family: 'Josefin Sans', sans-serif
+
+h1
+	color: $h1_colour
+	margin-top: 1vh
+	margin-bottom: 1rem
+	font-family: 'Lato', sans-serif
+
+h2
+	display: inline-flex
+	background: $h2_colour
+	border-radius: 20px
+	padding-left: 1rem
+	padding-right: 1rem
+	margin-top: 1.3rem
+h5
+	padding: 2rem
+	background: lighten($background,16%)
+	line-height: 2.2rem
+pre
+	padding: 2rem
+	background: adjust-hue(lighten($background,12%),2)
+	border: 1px solid black
+
+a
+	color: darken($h2_colour,20%)
+	text-decoration: none
+
+a:hover
+	color: $h2_colour
+.main, .container, .container-fluid+.height
+	min-height: 100vh
+.min_height_content
+	min-height: 97vh
+li
+	display: flex
+	/* flex-wrap: nowrap; */
+	/* justify-content: center; */
+	align-items: stretch
+	align-content: flex-start
+	flex-direction: column
+
+.main_tab_content
+	background: lighten($background,7%)
+hr
+	margin-top: 1.5rem
+
+.object_type
+	background: #153131
+	border-radius: 20px
+	padding: 4px
+	font-size: .95rem
+	color: lightyellow
+
+code
+	margin-left: 1.4rem
+	font-size: 1.03rem
+	font-weight: 400
+
+.search_input
+	display: flex
+	flex-direction: row
+	flex-wrap: wrap
+	justify-content: space-between
+
+.nav-tabs .nav-link, .nav-tabs .nav-link
+	background-color: lighten($background,7%)
+	color: $postcoderoonie
+	transition: 1.3s
+	margin-bottom: .8rem
+	border: none
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover
+	background-color: $postcoderoonie
+	color: $postcodecol
+	border: none
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active
+	color: #e8e8d7
+	background-color: $h2_colour
+	border: none
+
+.data_type
+	color: #153131
+	font-style: italic
+	font-weight: 600
+
+.parameter
+	display: flex
+	flex-wrap: wrap
+	flex-direction: column
+	justify-content: flex-end
+	align-items: center
+
+.parameter_mob mb-2
+	display: flex
+	flex-wrap: wrap
+	flex-direction: row
+	justify-content: flex-end
+	align-items: center
+
+.badge_required
+	background: darken($h2_colour, 10%)
+	border: 1px solid #153131
+.badge_optional
+	color: #153131
+	background: #dae06e
+	border: 1px solid #472d30
+
+.smaller_get
+	font-size: .99rem
+	margin-top: 0.5rem
+	margin-bottom: 0.5rem
+	padding: 0.2rem
+.text-break
+	margin-left: 0!important
+.query_string
+	background: #153131
+	color: white!important
+.form_input
+	display: flex!important
+	flex-direction: column
+	flex-wrap: nowrap
+	align-content: space-between
+	align-items: flex-end
+	justify-content: flex-start
+.label_left
+	align-self: flex-start
+.param_parent
+	display: inline-flex
+	align-content: center
+	align-items: center
+.param_parent>kbd
+	font-family: 'Lato', sans-serif
+	color: #153131
+	background-color: #d6d8ba
+.center_label
+	display: inline-flex
+	flex-direction: row
+	align-content: center
+	align-items: center
+.center_search
+	display: flex
+	justify-content: space-between
+	flex-direction: row
+	flex-wrap: wrap
+	align-content: center
+	align-items: center
+nav
+	display: flex
+	position: sticky
+	top: 0
+	width: 100%
+	background: rgba(226, 109, 92, 0.85)
+.sticky_nav
+	position: sticky
+	top: 36px
+.nav-tabs
+	border-bottom: 0
+.nav_buttons
+	display: flex
+	flex-direction: row
+	justify-content: space-between
+	align-items: center
+
+.side_nav
+	transition: .75s ease-in-out
+	position: fixed
+	z-index: 2
+	width: 100vw
+	height: 100vh
+	background: rgba(0, 0, 0, 0.71)
+	display: inline-flex
+.mobile_nav_buttons
+	display: inline-flex
+	flex-direction: column
+	flex-wrap: wrap
+	align-content: stretch
+	justify-content: center
+	align-items: stretch
+	text-align: center
+	font-size: 1.5rem
+.mobile_nav_container
+	display: flex
+	background: rgba(0, 0, 0, 0)
+	flex-direction: column
+	flex-wrap: wrap
+	justify-content: center
+	align-content: center
+	align-items: center
+.mobile_nav_nav
+	background: rgba(0,0,0,0)
+.mobile_nav_button
+	background: rgba(255, 255, 255, 0.51)
+	width: 75%
+	border-radius: 10px
+
+.left_mobile_nav
+	transform: translateX(-100vw)
+	transition: .75s ease-in-out
+
+.nav_close
+	position: fixed
+	right: 10px
+	color: #fcfff0
+	top: 5px
+	font-size: 2rem
+
+.form-control
+	background-color: #f6f7ec
+

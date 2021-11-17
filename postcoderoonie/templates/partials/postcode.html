@@ -1,0 +1,102 @@
+<div class="row p-2">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk/</span>postcode
+                </h1>
+
+                <h5> This endpoint is used to search for postcodes with exact matches and will return a single <span
+                        class="object_type">location</span> object or an array if multiple searches are conducted.
+                </h5>
+
+                <hr>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                  <h2><kbd class="smaller_get">GET</kbd> Parameters</h2>
+                <hr>
+            </div>
+            <div class="col-2 d-none d-md-flex parameter">
+                <kbd>postcode=</kbd><span class="data_type">[string]</span>
+            </div>
+            <div class="d-flex d-md-none col-2 parameter_mob mb-2">
+                <kbd>postcode=</kbd><span class="data_type">[string]</span>
+            </div>
+            <div class="col-md-10">
+                Postcode lookup value (can produce multiple results by adding the | pipe between search terms
+                <br> <span class="badge badge_required">REQUIRED</span> (min-length=4)
+            </div>
+        </div>
+        <hr>
+        {% include "params/extra.html" %}
+        <div class="row">
+            <div class="col-12">
+                <h2>Example Usage</h2>
+
+                <p>
+                    single postcode with no space<br>
+                    <code>https://postcoderoonie.co.uk/api/postcode?postcode=PE147AP</code><br>
+                    single postcode with space (switch it for a + )<br>
+                    <code>https://postcoderoonie.co.uk/api/postcode?postcode=PE14+7AP</code><br>
+                    multiple postcodes<br>
+                    <code>https://postcoderoonie.co.uk/api/postcode?postcode=PE147AP|CT48ER|SA181BE </code><br>
+                </p>
+                <hr>
+
+
+                <h2>Example Response</h2><br>
+
+                <div class="param_parent  p-2 py-1 query_string">
+                    <kbd>GET</kbd> <code class="text-break">https://postcoderoonie.co.uk/api/postcode?postcode=CT48ER</code><br>
+                </div>
+                <p data-example="postcode" data-param="postcode" data-val="CT48ER" id="postcode">
+
+                </p>
+                <hr>
+
+
+                <h2>Example Empty Response</h2><br>
+                <div class="param_parent  p-2 py-1 query_string">
+                    <kbd>GET</kbd> <code
+                        class="text-break">https://postcoderoonie.co.uk/api/postcode?postcode=err</code><br>
+                </div>
+                <p data-example="postcode" data-param="postcode" data-val="err" id="postcode">
+
+                </p>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2>Try Yourself</h2>
+            </div>
+            <div class="col-12 form_input">
+
+                <label for="basic-url" class="label_left form-label">Search Terms</label>
+                <div class="input-group mb-3">
+                    <input required minlength="4" data-base="postcode" data-typeit="postcode" data-param="postcode"
+                           type="text" class="form-control" id="basic-url" aria-describedby="postcode_search">
+                    <button disabled data-searchit="postcode" class="btn btn-secondary" type="button">Search <i
+                            class="fas fa-search"></i></button>
+                </div>
+                <div class="form-check">
+                    <input data-typeit="postcode" data-param="extra" class="form-check-input" type="checkbox"
+                           id="extra_info" value="">
+                    <label class="form-check-label" for="extra_info">
+                        Extra information
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="param_parent  -2 py-1 query_string">
+                    <kbd>GET</kbd> <code class="text-break"
+                                         data-codeit="postcode">https://postcoderoonie.co.uk/api/postcode</code><br>
+                </div>
+                <pre data-tryit="postcode"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
