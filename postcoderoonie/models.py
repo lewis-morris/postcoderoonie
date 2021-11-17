@@ -68,10 +68,11 @@ class Places(db.Model):
 class Request(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     endpoint = db.Column(db.String(200), unique=False, nullable=True)
+    base_url = db.Column(db.String(200), unique=False, nullable=True)
     full_url = db.Column(db.String(200), unique=False, nullable=True)
     ip = db.Column(db.String(100), unique=False, nullable=True)
     ms = db.Column(db.Integer, unique=False, nullable=True)
-    message = db.Column(db.Integer, unique=False, nullable=True)
-    error = db.Column(db.Integer, unique=False, nullable=True)
+    message = db.Column(db.String(200), unique=False, nullable=True)
+    error = db.Column(db.String(200), unique=False, nullable=True)
     complete = db.Column(db.Boolean, unique=False, nullable=True)
     time = db.Column(db.DateTime, unique=False, default=datetime.datetime.utcnow)

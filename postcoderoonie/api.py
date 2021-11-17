@@ -6,7 +6,7 @@ import json
 import logging
 from sqlalchemy.sql import or_
 
-from postcoderoonie import limiter
+from postcoderoonie import limiter, db
 from postcoderoonie.functions import inject_start
 from postcoderoonie.models import Places, Request
 
@@ -17,28 +17,32 @@ api = Blueprint('api', __name__, url_prefix="/api")
 
 result_limit = 25
 
+
 @api.errorhandler(Exception)
 def server_error_unknown(err):
     return build_response(status=400, error="Bad request", message="Please reformat your request")
+
 
 @api.errorhandler(500)
 @inject_start
 def server_error(e, *args, **kwargs):
     return build_response(status=500, error="Server error", message="An unhandled exception occurred")
 
+
 @api.errorhandler(429)
 @inject_start
 def ratelimit_handler(e, *args, **kwargs):
     return build_response(status=429, error="Rate hit", message="Rate limit exceeded")
+
 
 @api.errorhandler(404)
 @inject_start
 def notfound_handler(e, *args, **kwargs):
     return build_response(status=404, error="Resource not found", message="Endpoint not found")
 
+
 def build_response(result=None, status=200, message=None, result_count=None, total_pages=None,
                    result_length=None, current_page=None, error=None, date_start=None):
-
     # get extras that work on all queries
     depth = int(request.args.get("extra", request.args.get("?extra", 0)))
 
@@ -91,16 +95,24 @@ def build_response(result=None, status=200, message=None, result_count=None, tot
     if current_page or current_page == 0:
         response["current_page"] = current_page
 
+    # save the request into the database
+    req = Request(endpoint=request.endpoint, full_url=request.full_path, base_url=request.base_url,
+                  ip=get_remote_address(), complete=complete, message=message if message else None,
+                  error=error if error else None, ms=int(runtime.replace("ms", "")) if date_start else None)
+    db.session.add(req)
+    db.session.commit()
 
     return response, status
 
+
 def get_bool(val):
-    return val in [1,"1",True,"true","True"]
+    return val in [1, "1", True, "true", "True"]
+
 
 def do_extra_requests(q):
     active = request.args.get("active", request.args.get("?active", None))
     if active:
-        q = q.filter(Places.active==get_bool(active))
+        q = q.filter(Places.active == get_bool(active))
     return q
 
 
@@ -225,7 +237,7 @@ def get_salary(*args, **kwargs):
     total_pages = int(count / limit)
 
     # check the query
-    params_invalid_response = check_postcodes_search(page, total_pages, limit, code, (start,end))
+    params_invalid_response = check_postcodes_search(page, total_pages, limit, code, (start, end))
     if params_invalid_response:
         return params_invalid_response
 
