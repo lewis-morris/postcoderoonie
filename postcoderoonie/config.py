@@ -11,7 +11,7 @@ class AppConfig:
     JSON_SORT_KEYS = False
     SECRET_KEY=os.getenv("SECRET_KEY")
     RATELIMIT_STORAGE_URL = "redis://127.0.0.1:6379"
-    SQLALCHEMY_DATABASE_URI = f"postgresql://postcodes:{os.getenv('SQLPASS')}@18.134.236.107:5433/postcode"
+    SQLALCHEMY_DATABASE_URI = f"postgresql://postcodes:@18.134.236.107:5433/postcode"
 
     # SQLALCHEMY_ECHO = True
 class ProductionConfig(AppConfig):

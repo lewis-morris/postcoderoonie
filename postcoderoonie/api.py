@@ -11,7 +11,7 @@ from sqlalchemy import func
 from sqlalchemy.sql import or_
 
 from postcoderoonie import limiter, db
-from postcoderoonie.functions import inject_start
+from postcoderoonie.functions import inject_start, get_remote_ip
 from postcoderoonie.models import Places, Request
 
 from flask_limiter.util import get_remote_address
@@ -110,7 +110,7 @@ def build_response(result=None, status=200, message=None, result_count=None, tot
 
     # save the request into the database
     req = Request(endpoint=request.endpoint, full_url=request.full_path, base_url=request.base_url,
-                  ip=get_remote_address(), complete=complete, message=message if message else None,
+                  ip=get_remote_ip(), complete=complete, message=message if message else None,
                   error=error if error else None, status=status,
                   ms=int(runtime.replace("ms", "")) if date_start else None)
     db.session.add(req)
@@ -147,7 +147,7 @@ def get_status(*args, **kwargs):
 
 
 @api.route("/postcode")
-@limiter.limit("10000/hour")
+@limiter.limit("1000/hour")
 @limiter.limit("3/second")
 @inject_start
 def get_postcode(*args, **kwargs):
@@ -178,8 +178,8 @@ def get_postcode(*args, **kwargs):
     return server_error_type_error(TypeError("Params missing"))
 
 @api.route("/postcodes")
-@limiter.limit("10200/hour")
-@limiter.limit("30/second")
+@limiter.limit("1000/hour")
+@limiter.limit("3/second")
 @inject_start
 def get_postcodes(*args, **kwargs):
     """
@@ -246,8 +246,8 @@ def check_postcodes_search(page, total_pages, limit, postcode, sal=None):
 
 
 @api.route("/salary")
-@limiter.limit("10200/hour")
-@limiter.limit("30/second")
+@limiter.limit("1000/hour")
+@limiter.limit("3/second")
 @inject_start
 def get_salary(*args, **kwargs):
     """
@@ -293,8 +293,8 @@ def get_salary(*args, **kwargs):
     return build_response(status=200, message="Requested content not found", date_start=kwargs["start_date"])
 
 @api.route("/distance")
-@limiter.limit("10200/hour")
-@limiter.limit("30/second")
+@limiter.limit("1000/hour")
+@limiter.limit("3/second")
 @inject_start
 def get_distance(*args, **kwargs):
     """

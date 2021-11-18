@@ -10,10 +10,12 @@ from flask_limiter.util import get_remote_address
 import limits.storage
 from flask_redis import FlaskRedis
 
+from postcoderoonie.functions import get_remote_ip
+
 db = SQLAlchemy()
 migrate = Migrate()
 redis_client = FlaskRedis()
-limiter = Limiter(key_func=get_remote_address)
+limiter = Limiter(key_func=get_remote_ip)
 # scheduler = APScheduler()
 
 def create_app(test_config=None):
