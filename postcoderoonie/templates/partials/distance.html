@@ -1,0 +1,146 @@
+<div class="row p-2">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk/</span><br
+                        class="d-block d-md-none">distance
+                </h1>
+
+                <h5> This endpoint is used to search calculate distance between two postcodes and will return (on valid
+                    lookup) two <span
+                            class="object_type">location</span> objects and the distance in specified unit of
+                    measurement.
+                </h5>
+                <hr>
+            </div>
+        </div>
+        {% with id="distance" %}
+            {% include "params/msreview.html" %}
+        {% endwith %}
+        <div class="row mb-3">
+            <div class="col-12">
+                <h2><kbd class="smaller_get">GET</kbd> Parameters</h2>
+                <hr>
+            </div>
+            <div class="col-2 d-none d-md-flex parameter">
+                <kbd>postcode_one=</kbd><span class="data_type">[string]</span>
+            </div>
+            <div class="d-flex d-md-none col-2 parameter_mob mb-2">
+                <kbd>postcode_one=</kbd><span class="data_type">[string]</span>
+            </div>
+            <div class="col-md-10">
+                First Postcode lookup value (exact match)
+                <br> <span class="badge badge_required">REQUIRED</span> (min-length=5)
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-2 d-none d-md-flex parameter">
+                <kbd>postcode_two=</kbd><span class="data_type">[string]</span>
+            </div>
+            <div class="d-flex d-md-none col-2 parameter_mob mb-2">
+                <kbd>postcode_two=</kbd><span class="data_type">[string]</span>
+            </div>
+            <div class="col-md-10">
+                Second Postcode lookup value (exact match)
+                <br> <span class="badge badge_required">REQUIRED</span> (min-length=5)
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-2 d-none d-md-flex parameter">
+                <kbd>unit=</kbd><span class="data_type">[string]</span>
+            </div>
+            <div class="d-flex d-md-none col-2 parameter_mob mb-2">
+                <kbd>unit=</kbd><span class="data_type">[string]</span>
+            </div>
+            <div class="col-md-10">
+                Unit of measurement - can be either m (for miles) or km (for kilometres)
+                <br> <span class="badge badge_optional">Optional</span> (default: m)
+            </div>
+        </div>
+        <hr>
+        {% include "params/extra.html" %}
+        <div class="row">
+            <div class="col-12">
+                <h2>Example Usage</h2>
+
+                <p class="sub_content">
+                    distance between two postcodes in miles<br>
+                    <code>https://postcoderoonie.co.uk/api/distance?postcode_one=PE147AP&postcode_two=EN118RX</code><br>
+                    distance between two postcodes in miles<br>
+                    <code>https://postcoderoonie.co.uk/api/distance?postcode_one=PE147AP&postcode_two=EN118RX&unit=km</code><br>
+                </p>
+                <hr>
+
+
+                <h2>Example Response</h2><br>
+
+                <div class="param_parent  p-2 py-1 query_string">
+                    <kbd>GET</kbd> <code
+                        class="text-break">https://postcoderoonie.co.uk/api/distance?postcode_one=PE147AP&postcode_two=EN118RX</code><br>
+                </div>
+                <p data-example="distance" data-param="postcode_one¬postcode_two" data-val="PE147AP¬EN118RX"
+                   id="distance">
+
+                </p>
+                <hr>
+
+
+                <h2>Example Invalid Response</h2><br>
+                <div class="param_parent  p-2 py-1 query_string">
+                    <kbd>GET</kbd> <code
+                        class="text-break">https://postcoderoonie.co.uk/api/distance?postcode_one=PE147AP&postcode_two=NOPOST</code><br>
+                </div>
+                <p data-example="distance" data-param="postcode_one¬postcode_two" data-val="PE147AP¬NOPOST"
+                   id="distance">
+
+                </p>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2>Try Yourself</h2>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                            <div class="col-md-4">
+                                <label for="postcode_lookup_inp" class="form-label">Postcode One</label>
+                                <input required minlength="5" data-base="distance" data-typeit="distance"
+                                       data-param="postcode_one"
+                                       type="text" class="form-control" id="postcode_lookup_inp"
+                                       aria-describedby="postcode_search">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="postcode_lookup_inp" class="form-label">Postcode Two</label>
+                                <input required minlength="5" data-base="distance" data-typeit="distance"
+                                       data-param="postcode_two"
+                                       type="text" class="form-control" id="postcode_lookup_inp"
+                                       aria-describedby="postcode_search">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="postcode_lookup_inp" class="form-label">Unit</label>
+                                <select data-base="distance" data-typeit="distance" data-param="unit" class="form-select" aria-label="Unit distance">
+                                  <option selected value="m">Miles</option>
+                                  <option value="km">Kilometers</option>
+                                </select>
+                            </div>
+                        </div>
+                <div class="col-12 mt-2">
+                    <button style="float: right;" disabled data-searchit="distance" class="btn btn-secondary float-right" type="button">Search <i
+                    class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class=" param_parent mt-2 py-1 query_string">
+                    <kbd>GET</kbd> <code class="text-break"
+                                         data-codeit="distance">https://postcoderoonie.co.uk/api/postcode</code><br>
+                </div>
+                <pre data-tryit="distance"></pre>
+            </div>
+        </div>
+    </div>
+
+</div>
+

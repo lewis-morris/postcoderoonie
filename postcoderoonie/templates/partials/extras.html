@@ -2,11 +2,10 @@
     <div class="col-12">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk/</span>postcode
+                <h1 class="text-break"><span class="postcoderoonie">postcoderoonie.co.uk/</span> Extra's
                 </h1>
 
-                <h5> This endpoint is used to search for salary with average household salary between two values. Will return a list of <span
-                        class="object_type">location</span> objects. Some postcodes have NULL values for salary and these will be omitted. Due to the possible size of results, the request will be paginated.
+                <h5> These extras can be used in conjunction with any call to the <span class="postcoderoonie">postcoderoonie.co.uk/</span> API.
                 </h5>
 
                 <hr>
@@ -17,151 +16,42 @@
                   <h2><kbd class="smaller_get">GET</kbd> Parameters</h2>
                 <hr>
             </div>
-            <div class="col-2 d-none d-md-flex parameter">
-                <kbd>start_sal=</kbd><span class="data_type">[float]</span>
-            </div>
-            <div class="d-flex d-md-none col-2 parameter_mob mb-2">
-                <kbd>start_sal=</kbd><span class="data_type">[float]</span>
-            </div>
-            <div class="col-md-10">
-                Starting salary value i.e 20000
-                <br><span class="badge badge_required">REQUIRED</span>
-            </div>
         </div>
-        <hr>
-        <div class="row mb-3">
-            <div class="col-2 d-none d-md-flex parameter">
-                <kbd>end_sal=</kbd><span class="data_type">[float]</span>
-            </div>
-            <div class="d-flex d-md-none col-2 parameter_mob mb-2">
-                <kbd>end_sal=</kbd><span class="data_type">[float]</span>
-            </div>
-            <div class="col-md-10">
-                Ending salary value i.e 25000
-                <br><span class="badge badge_required">REQUIRED</span>
-            </div>
-        </div>
-        <hr>
-        <div class="row mb-3">
-            <div class="col-2 d-none d-md-flex parameter">
-                <kbd>postcode=</kbd><span class="data_type">[string]</span>
-            </div>
-            <div class="d-flex d-md-none col-2 parameter_mob mb-2">
-                <kbd>postcode=</kbd><span class="data_type">[string]</span>
-            </div>
-            <div class="col-md-10">
-                Postcode lookup value
-                <br><span class="badge badge_optional">OPTIONAL</span>
-            </div>
-        </div>
-        <hr>
-        {% include "params/pagination.html" %}
         {% include "params/extra.html" %}
 
-        <div class="row">
-            <div class="col-12">
-                <h2>Extra Information</h2>
-                <p>
-                    Results are always sorted in ascending order<br>
-                </p>
-            </div>
-        </div>
         <div class="row">
             <div class="col-12">
                 <h2>Example Usage</h2>
 
                 <p>
-                    salary with start & end value<br>
-                    <code>https://postcoderoonie.co.uk/api/salary?start_sal=10000&end_sal=15000</code><br>
-                    salary with start, end value & postcode filter<br>
-                    <code>https://postcoderoonie.co.uk/api/salary?start_sal=10000&end_sal=15000&postcode=en1</code><br>
+                    Search postcode with extra information<br>
+                    <code>https://postcoderoonie.co.uk/api/postcode?postcode=SG180Ns&extra=1</code><br>
+                    Search postcodes, showing only inactive results<br>
+                    <code>https://postcoderoonie.co.uk/api/postcodes?postcodes=EN1&active=0</code><br>
                 </p>
                 <hr>
 
 
-                <h2>Example Response</h2><br>
+                <h2>Example Extra Response</h2><br>
 
                 <div class="param_parent  p-2 py-1 query_string">
-                    <kbd>GET</kbd> <code class="text-break">https://postcoderoonie.co.uk/api/salary?start_sal=50000&end_sal=55000&postcode=en1</code><br>
+                    <kbd>GET</kbd> <code class="text-break">https://postcoderoonie.co.uk/api/postcode?postcode=SG180Ns&extra=1</code><br>
                 </div>
-                <p data-example="salary" data-param="start_sal¬end_sal¬postcode" data-val="50000¬55000¬en1" id="salary">
+                <p data-example="postcode" data-param="postcode¬extra" data-val="SG180NS¬1" id="postcode">
 
                 </p>
                 <hr>
 
 
-                <h2>Example Empty Response</h2><br>
+                <h2>Example Inactive Only Response</h2><br>
                 <div class="param_parent  p-2 py-1 query_string">
                     <kbd>GET</kbd> <code
-                        class="text-break">https://postcoderoonie.co.uk/api/salary?start_sal=999999&end_sal=999999</code><br>
+                        class="text-break">https://postcoderoonie.co.uk/api/postcodes?postcode=EN1&active=0</code><br>
                 </div>
-                <p data-example="salary" data-param="start_sal¬end_sal" data-val="999999¬999999" id="salary">
+                <p data-example="postcodes" data-param="postcode¬active" data-val="EN1¬0" id="postcodes">
 
                 </p>
                 <hr>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <h2>Try Yourself</h2>
-            </div>
-            <div class="col-md-12">
-                <div class="mb-3 d-inline-flex">
-                    <div class="row">
-                        <div class="col-6 col-md-3">
-                            <label for="start_sal" class="form-label">Starting Income</label>
-                            <input required min="0" data-base="salary" data-typeit="salary" data-param="start_sal"
-                                   type="number" class="form-control" id="start_sal" aria-describedby="start_sal">
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <label for="end_sal" class="form-label">Ending Income</label>
-                            <input required min="0" data-base="salary" data-typeit="salary" data-param="end_sal"
-                                   type="number" class="form-control" id="end_sal" aria-describedby="end_sal">
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <label for="results_return" class="form-label">Results</label>
-                            <input min="0" max="25" data-base="salary" data-typeit="salary" data-param="limit"
-                                   type="number"
-                                   class="form-control" id="results_return" aria-describedby="postcode_search">
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <label for="page_no" class="form-label">Page no</label>
-                            <input data-base="salary" data-typeit="salary" data-param="page" type="number"
-                                   class="form-control"
-                                   id="page_no" aria-describedby="postcode_search">
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <label for="postcode" class="form-label">Postcode</label>
-                            <input data-base="salary" data-typeit="salary" data-param="postcode" type="text"
-                                   class="form-control"
-                                   id="postcode" aria-describedby="postcode_search">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 center_search">
-                <div class="form-check center_label">
-                    <input data-typeit="salary" data-param="extra" class="form-check-input" type="checkbox"
-                           id="extra_info"
-                           value="">
-                    <label class="form-check-label" for="extra_info">
-                        Extra information
-                    </label>
-                </div>
-                <div>
-                    <button disabled data-searchit="salary" class="btn btn-secondary" type="button">Search <i
-                            class="fas fa-search"></i></button>
-                </div>
-
-            </div>
-
-
-            <div class="col-12 ">
-                <div class="param_parent  p-2 py-1 query_string">
-                    <kbd>GET</kbd> <code class="text-break"
-                                         data-codeit="salary">https://postcoderoonie.co.uk/api/salary</code><br>
-                </div>
-                <pre data-tryit="salary"></pre>
             </div>
         </div>
     </div>

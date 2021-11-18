@@ -39,7 +39,8 @@ class Places(db.Model):
     police = db.Column(db.String(100), unique=False, nullable=True, info={"type": "amenities", "extra": True})
     sewage_company = db.Column(db.String(100), unique=False, nullable=True, info={"type": "amenities", "extra": True})
     water_company = db.Column(db.String(100), unique=False, nullable=True, info={"type": "amenities", "extra": True})
-
+    def get_latlon(self):
+        return (self.lat, self.long)
     def json(self, extra=0):
         output = {}
         # loop all fields
@@ -75,4 +76,5 @@ class Request(db.Model):
     message = db.Column(db.String(200), unique=False, nullable=True)
     error = db.Column(db.String(200), unique=False, nullable=True)
     complete = db.Column(db.Boolean, unique=False, nullable=True)
+    status = db.Column(db.Integer, unique=False, nullable=True)
     time = db.Column(db.DateTime, unique=False, default=datetime.datetime.utcnow)

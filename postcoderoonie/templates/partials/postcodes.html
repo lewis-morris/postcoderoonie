@@ -2,7 +2,8 @@
     <div class="col-12">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk/</span>postcodes</h1>
+                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk/</span><br class="d-block d-md-none">postcodes
+                </h1>
 
                 <h5>
                     This endpoint is used to lookup partial matches of postcodes and will return a list of <span
@@ -13,9 +14,12 @@
 
             </div>
         </div>
+        {% with id="postcodes" %}
+            {% include "params/msreview.html" %}
+        {% endwith %}
         <div class="row mb-3">
             <div class="col-12">
-                  <h2><kbd class="smaller_get">GET</kbd> Parameters</h2>
+                <h2><kbd class="smaller_get">GET</kbd> Parameters</h2>
                 <hr>
             </div>
             <div class="col-2 d-none d-md-flex parameter">
@@ -36,7 +40,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Example Usage</h2>
-                <p>
+                <p class="sub_content">
                     partial postcode lookup <br>
                     <code>https://postcoderoonie.co.uk/api/postcodes?postcode=PE14</code><br>
                     search postcode, with 5 results and page 10<br>
@@ -58,7 +62,8 @@
                 <h2>Example Empty Response</h2>
                 <br>
                 <div class="param_parent p-2 py-1 query_string">
-                    <kbd>GET</kbd> <code class="text-break">https://postcoderoonie.co.uk/api/postcodes?postcode=err</code><br>
+                    <kbd>GET</kbd> <code
+                        class="text-break">https://postcoderoonie.co.uk/api/postcodes?postcode=err</code><br>
                 </div>
                 <p data-example="postcodes" data-param="postcode" data-val="err" id="postcode_empty">
 
@@ -75,8 +80,10 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label for="postcode_lookup_inp" class="form-label">Postcode Lookup</label>
-                            <input required minlength="3" data-base="postcodes" data-typeit="postcodes" data-param="postcode"
-                                   type="text" class="form-control" id="postcode_lookup_inp" aria-describedby="postcode_search">
+                            <input required minlength="3" data-base="postcodes" data-typeit="postcodes"
+                                   data-param="postcode"
+                                   type="text" class="form-control" id="postcode_lookup_inp"
+                                   aria-describedby="postcode_search">
                         </div>
                         <div class="col-md-4">
                             <label for="results_return" class="form-label">Results</label>
@@ -120,5 +127,6 @@
             </div>
         </div>
     </div>
+
 </div>
 

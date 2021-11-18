@@ -1,9 +1,13 @@
 import datetime
 from collections import OrderedDict
+from operator import itemgetter
 
 from flask import Blueprint, request, jsonify
 import json
 import logging
+
+from haversine import haversine, Unit
+from sqlalchemy import func
 from sqlalchemy.sql import or_
 
 from postcoderoonie import limiter, db
@@ -21,6 +25,11 @@ result_limit = 25
 @api.errorhandler(Exception)
 def server_error_unknown(err):
     return build_response(status=400, error="Bad request", message="Please reformat your request")
+
+
+@api.errorhandler(TypeError)
+def server_error_type_error(err):
+    return build_response(status=400, error="Bad request", message="Required parameter missing from query")
 
 
 @api.errorhandler(500)
@@ -42,7 +51,7 @@ def notfound_handler(e, *args, **kwargs):
 
 
 def build_response(result=None, status=200, message=None, result_count=None, total_pages=None,
-                   result_length=None, current_page=None, error=None, date_start=None):
+                   result_length=None, current_page=None, error=None, date_start=None, extra=None):
     # get extras that work on all queries
     depth = int(request.args.get("extra", request.args.get("?extra", 0)))
 
@@ -95,10 +104,15 @@ def build_response(result=None, status=200, message=None, result_count=None, tot
     if current_page or current_page == 0:
         response["current_page"] = current_page
 
+    # extra results information
+    if extra:
+        response["details"] = extra
+
     # save the request into the database
     req = Request(endpoint=request.endpoint, full_url=request.full_path, base_url=request.base_url,
                   ip=get_remote_address(), complete=complete, message=message if message else None,
-                  error=error if error else None, ms=int(runtime.replace("ms", "")) if date_start else None)
+                  error=error if error else None, status=status,
+                  ms=int(runtime.replace("ms", "")) if date_start else None)
     db.session.add(req)
     db.session.commit()
 
@@ -110,10 +124,26 @@ def get_bool(val):
 
 
 def do_extra_requests(q):
+    """
+    All requests can be filtered by the "Extra requests" and these happen here.
+    :param q: sqlalchemy query
+    :return: sqlalchemy filtered query
+    """
     active = request.args.get("active", request.args.get("?active", None))
     if active:
         q = q.filter(Places.active == get_bool(active))
     return q
+
+
+@api.route("/status")
+@inject_start
+def get_status(*args, **kwargs):
+    """
+    Returns postcodes based on exact matches, can be used for validation of postcodes.
+    :return:
+    """
+
+    return build_response(status=200, date_start=kwargs["start_date"], message= "all systems are go")
 
 
 @api.route("/postcode")
@@ -145,6 +175,7 @@ def get_postcode(*args, **kwargs):
             return build_response(pl, date_start=kwargs["start_date"])
         return build_response(status=200, message="Requested content not found", date_start=kwargs["start_date"])
 
+    return server_error_type_error(TypeError("Params missing"))
 
 @api.route("/postcodes")
 @limiter.limit("10200/hour")
@@ -190,8 +221,19 @@ def get_postcodes(*args, **kwargs):
 
         return build_response(status=200, message="Requested content not found", date_start=kwargs["start_date"])
 
+    return server_error_type_error(TypeError("Params missing"))
+
 
 def check_postcodes_search(page, total_pages, limit, postcode, sal=None):
+    """
+    Validates the request and returns response if not valid
+    :param page: page number of the paginated request
+    :param total_pages: Total page count of paginated request
+    :param limit: limit of the sql query - fails if too high
+    :param postcode: postcode length checker
+    :param sal: salary min/ max
+    :return: Response / None
+    """
     if limit > result_limit:
         return build_response(status=400, message=f"Results parameter > {result_limit}")
     if page > total_pages:
@@ -249,3 +291,57 @@ def get_salary(*args, **kwargs):
                               current_page=page, date_start=kwargs["start_date"])
 
     return build_response(status=200, message="Requested content not found", date_start=kwargs["start_date"])
+
+@api.route("/distance")
+@limiter.limit("10200/hour")
+@limiter.limit("30/second")
+@inject_start
+def get_distance(*args, **kwargs):
+    """
+    Used to search for wildcard entries for location search
+    :return
+    """
+
+    # get the request params
+    code_one = request.args.get("postcode_one", request.args.get("?postcode_one", None)).upper().replace(" ","")
+    code_two = request.args.get("postcode_two", request.args.get("?postcode_two", None)).upper().replace(" ","")
+    unit = request.args.get("unit", request.args.get("?unit", "m"))
+
+    # Query the two postcodes
+    q = Places.query.filter(Places.postcode_trim.in_([code_one,code_two]))
+
+    # deal with any extra requests
+    results = do_extra_requests(q).all()
+
+    if len(results) == 2:
+        unit = Unit.KILOMETERS if unit.lower() == "km" else Unit.MILES
+        distance = round(haversine(results[0].get_latlon(), results[1].get_latlon(), unit),3)
+        return build_response(results,  date_start=kwargs["start_date"], extra={"distance":distance, "unit":unit.name.lower()})
+
+    return build_response(status=200, message="One or more of requested content not found", date_start=kwargs["start_date"])
+
+
+@api.route("/api-use-review/<q>")
+def get_avg_ms(q):
+    """
+    Used to get the avg ms response time and count -> displayed on frontend
+    :param q:
+    :return:
+    """
+    query = db.session.query(Request).filter(Request.base_url == f"{request.url_root}api/{q}", Request.complete == True)
+    avg = query.with_entities(func.avg(Request.ms)).first()
+    return {"avg": int(avg[0]), "count": query.count()}, 200
+
+
+@api.route("/api-response/<q>")
+def get_api_response(q):
+    """
+    Used to get a list of response times for each endpoint -> plots chart on the frontend
+    :param q:
+    :return:
+    """
+    query = db.session.query(Request.ms, Request.time).filter(Request.base_url == f"{request.url_root}api/{q}",
+                                                              Request.complete == True).order_by(Request.time).limit(
+        100).all()
+    data = [[i, x[0]] for i, x in enumerate(query)]
+    return {"data": list(map(itemgetter(1), data)), "time": list(map(itemgetter(0), data))}, 200

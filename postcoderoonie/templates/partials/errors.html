@@ -1,0 +1,42 @@
+<div class="row p-2">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk</span><br class="d-block d-md-none">{all_endpoints}
+                </h1>
+
+                <h5> Errors that you can encounter while using this api</h5>
+
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h2>Example Errors</h2>
+                <h5>Parameter should be <kbd>postcode=</kbd> <i class="fas fa-long-arrow-alt-right"></i> returns 400 bad request </h5>
+                <div class="param_parent  p-2 py-1 query_string">
+                    <kbd>GET</kbd> <code
+                        class="text-break">https://postcoderoonie.co.uk/api/postcode?postcoderrrrr=CT48ER</code><br>
+                </div>
+                <p data-example="postcode" data-param="postcoderrrrr" data-val="CT48ER" id="postcoderrrrr">
+
+                </p>
+                <hr>
+
+                <h5>Rate limit hit <i class="fas fa-long-arrow-alt-right"></i> returns 429 bad request </h5>
+                <div class="param_parent  p-2 py-1 query_string">
+                    <kbd>GET</kbd> <code
+                        class="text-break">https://postcoderoonie.co.uk/api/postcode?postcoderrrrr=CT48ER</code><br>
+                </div>
+                <p data-wait="1000" data-times="6" data-example="postcode" data-param="postcoderrrrr" data-val="CT48ER" id="postcode">
+
+                </p>
+                <hr>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

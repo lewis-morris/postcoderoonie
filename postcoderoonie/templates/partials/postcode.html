@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk/</span>postcode
+                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk/</span><br class="d-block d-md-none">postcode
                 </h1>
 
                 <h5> This endpoint is used to search for postcodes with exact matches and will return a single <span
@@ -12,9 +12,12 @@
                 <hr>
             </div>
         </div>
+        {% with id="postcode" %}
+            {% include "params/msreview.html" %}
+        {% endwith %}
         <div class="row mb-3">
             <div class="col-12">
-                  <h2><kbd class="smaller_get">GET</kbd> Parameters</h2>
+                <h2><kbd class="smaller_get">GET</kbd> Parameters</h2>
                 <hr>
             </div>
             <div class="col-2 d-none d-md-flex parameter">
@@ -34,7 +37,7 @@
             <div class="col-12">
                 <h2>Example Usage</h2>
 
-                <p>
+                <p class="sub_content">
                     single postcode with no space<br>
                     <code>https://postcoderoonie.co.uk/api/postcode?postcode=PE147AP</code><br>
                     single postcode with space (switch it for a + )<br>
@@ -48,7 +51,8 @@
                 <h2>Example Response</h2><br>
 
                 <div class="param_parent  p-2 py-1 query_string">
-                    <kbd>GET</kbd> <code class="text-break">https://postcoderoonie.co.uk/api/postcode?postcode=CT48ER</code><br>
+                    <kbd>GET</kbd> <code
+                        class="text-break">https://postcoderoonie.co.uk/api/postcode?postcode=CT48ER</code><br>
                 </div>
                 <p data-example="postcode" data-param="postcode" data-val="CT48ER" id="postcode">
 
@@ -98,5 +102,6 @@
             </div>
         </div>
     </div>
+
 </div>
 

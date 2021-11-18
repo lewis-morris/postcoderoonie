@@ -2,19 +2,25 @@
     <div class="col-12">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk/</span>postcode
+                <h1 class="text-break"><kbd>GET</kbd> <span class="postcoderoonie">postcoderoonie.co.uk/</span><br class="d-block d-md-none">salary
                 </h1>
 
-                <h5> This endpoint is used to search for salary with average household salary between two values. Will return a list of <span
-                        class="object_type">location</span> objects. Some postcodes have NULL values for salary and these will be omitted. Due to the possible size of results, the request will be paginated.
+                <h5> This endpoint is used to search for salary with average household salary between two values. Will
+                    return a list of <span
+                            class="object_type">location</span> objects. Some postcodes have NULL values for salary and
+                    these will be omitted. Due to the possible size of results, the request will be paginated.
                 </h5>
-
                 <hr>
             </div>
         </div>
+
+        {% with id="salary" %}
+            {% include "params/msreview.html" %}
+        {% endwith %}
+
         <div class="row mb-3">
             <div class="col-12">
-                  <h2><kbd class="smaller_get">GET</kbd> Parameters</h2>
+                <h2><kbd class="smaller_get">GET</kbd> Parameters</h2>
                 <hr>
             </div>
             <div class="col-2 d-none d-md-flex parameter">
@@ -61,7 +67,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Extra Information</h2>
-                <p>
+                <p class="sub_content">>
                     Results are always sorted in ascending order<br>
                 </p>
             </div>
@@ -70,7 +76,7 @@
             <div class="col-12">
                 <h2>Example Usage</h2>
 
-                <p>
+                <p class="sub_content">
                     salary with start & end value<br>
                     <code>https://postcoderoonie.co.uk/api/salary?start_sal=10000&end_sal=15000</code><br>
                     salary with start, end value & postcode filter<br>
@@ -165,5 +171,6 @@
             </div>
         </div>
     </div>
+
 </div>
 
