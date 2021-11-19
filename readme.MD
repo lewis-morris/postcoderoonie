@@ -1,6 +1,6 @@
 # Postcoderoonie API v0.1
 
-[https://postcoderoonie.co.uk](postcoderoonie.co.uk)
+[postcoderoonie.co.uk](https://postcoderoonie.co.uk)
 
 ## UK postcode search/ validation API
 
