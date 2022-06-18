@@ -12,8 +12,9 @@ jobs:
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2
       with:       
+        source: /postcoderoonie/
         switches: -avzr 
-        remote_path: /home/ubuntu/test/
+        remote_path: /home/ubuntu/postcoderoonie/postcoderoonie/
         remote_host: ${{ secrets.REMOTE_HOST }}
         remote_user: ${{ secrets.REMOTE_USER }}
         remote_key: ${{ secrets.SSH_KEY }}
