@@ -24,4 +24,6 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_KEY }}
-        script: sudo systemctl restart postcoderoonie.service 
+        script: |
+          sudo systemctl restart postcoderoonie.service postgresql nginx
+          
