@@ -13,7 +13,7 @@ jobs:
       uses: easingthemes/ssh-deploy@main
       env:
           SSH_PRIVATE_KEY: ${{ secrets.ssh_key }}
-          SOURCE: "postcoderooni/"
+          SOURCE: "postcoderoonie/"
           REMOTE_HOST: "thecomputermade.me"
           REMOTE_USER: "ubuntu"
           TARGET: "/home/ubuntu/postcoderoonie/postcoderoonie/"
