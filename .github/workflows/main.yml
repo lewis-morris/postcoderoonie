@@ -2,17 +2,17 @@ name: Node CI
 
 on: [push]
 
+
 jobs:
-  build:
-
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-
-    - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@main
-      env:
-          SSH_PRIVATE_KEY: ${{ secrets.ssh_key }}
-          REMOTE_HOST: "thecomputermade.me"
-          REMOTE_USER: "ubuntu"
-          TARGET: "/home/ubuntu/test/"
+    - uses: actions/checkout@v2
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.2
+      with:       
+        path: src/
+        remote_path: /test
+        remote_host: ${{ secrets.REMOTE_HOST }}
+        remote_user: ${{ secrets.REMOTE_USER }}
+        remote_key: ${{ secrets.SSH_KEY }}
