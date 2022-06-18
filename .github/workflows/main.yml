@@ -14,7 +14,7 @@ jobs:
       with:       
         source: /postcoderoonie/
         switches: -avzr 
-        remote_path: /home/ubuntu/postcoderoonie/postcoderoonie/
+        remote_path: /home/ubuntu/postcoderoonie/
         remote_host: ${{ secrets.REMOTE_HOST }}
         remote_user: ${{ secrets.REMOTE_USER }}
         remote_key: ${{ secrets.SSH_KEY }}
