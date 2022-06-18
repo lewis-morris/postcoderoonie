@@ -15,4 +15,4 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.ssh_key }}
           REMOTE_HOST: "thecomputermade.me"
           REMOTE_USER: "ubuntu"
-          TARGET: "/home/ubuntu/postcoderoonie/postcoderoonie/"
+          TARGET: "/test/test"
