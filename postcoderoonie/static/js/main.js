@@ -94,7 +94,8 @@ function get_response(tab_content_el) {
                 fetch(url)
                     .then(async response => {
                         let data = await response.json()
-                        value.innerHTML = "<pre>" + `<kbd style="font-size: 1.3rem">${response.status}</kbd><br><br>` + js_beautify(JSON.stringify(data)) + "</pre>"
+                        value.innerHTML = "<pre>" + `<kbd style="font-size: 1.3rem">${response.status}</kbd><br><br>` + "<code>" + js_beautify(JSON.stringify(data)) + "</code></pre>"
+                        hljs.highlightAll()
                     })
             }
 
@@ -132,8 +133,9 @@ function setup_inputs(tab_content_el) {
                 .then(async response => {
                     let data = await response.json()
                     let output_el = document.querySelector(`[data-tryit='${url}']`)
-                    output_el.innerHTML = `<kbd style="font-size: 1.3rem">${response.status}</kbd><br><br>` + js_beautify(JSON.stringify(data))
+                    output_el.innerHTML = `<kbd style="font-size: 1.3rem">${response.status}</kbd><br><br>` + "<code>" + js_beautify(JSON.stringify(data)) + "</code>"
                     output_el.scrollIntoView()
+                    hljs.highlightAll()
                 }).catch(resp => {
                 console.log(resp)
             })

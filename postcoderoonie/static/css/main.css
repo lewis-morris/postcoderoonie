@@ -115,6 +115,12 @@ code {
   font-weight: 400;
 }
 
+pre code {
+  margin-left: 0;
+  border-radius: 20px;
+  background: #153131 !important;
+}
+
 .search_input {
   display: flex;
   flex-direction: row;
@@ -312,6 +318,10 @@ nav {
 
 .form-control {
   background-color: #f6f7ec;
+}
+
+.github-fork-ribbon {
+  position: fixed !important;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -23,7 +23,7 @@ result_limit = 25
 
 
 @api.errorhandler(Exception)
-def server_error_unknown(err):
+def server_error_unkutcnown(err):
     return build_response(status=400, error="Bad request", message="Please reformat your request")
 
 
@@ -81,7 +81,7 @@ def build_response(result=None, status=200, message=None, result_count=None, tot
     response = OrderedDict({"status": text_status, "url": request.url})
 
     if date_start:
-        runtime = str(int((datetime.datetime.now() - date_start).total_seconds() * 1000)) + "ms"
+        runtime = str(int((datetime.datetime.utcnow() - date_start).total_seconds() * 1000)) + "ms"
         response["date_start"] = date_start.utcnow().isoformat()
         response["runtime"] = runtime
 
