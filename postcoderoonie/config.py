@@ -15,7 +15,7 @@ class AppConfig:
 
     # SQLALCHEMY_ECHO = True
 class ProductionConfig(AppConfig):
-    SERVER_NAME = "https://postcoderoonie.co.uk"
+    SQLALCHEMY_DATABASE_URI = f"postgresql://postcodes:@localhost/postcode"
 
 class DevelopmentConfig(AppConfig):
-    SERVER_NAME = "localhost:5000"
+    SQLALCHEMY_DATABASE_URI = f"postgresql://postcodes:@18.134.236.107:5433/postcode"
