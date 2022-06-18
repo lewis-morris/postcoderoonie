@@ -11,6 +11,7 @@ jobs:
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2
       with:       
+        switches: -avzr 
         remote_path: /home/ubuntu/test
         remote_host: ${{ secrets.REMOTE_HOST }}
         remote_user: ${{ secrets.REMOTE_USER }}
