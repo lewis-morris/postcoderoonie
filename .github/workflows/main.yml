@@ -12,8 +12,8 @@ jobs:
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@main
       env:
+          SOURCE: $GITHUB_WORKSPACE
           SSH_PRIVATE_KEY: ${{ secrets.ssh_key }}
           REMOTE_HOST: "thecomputermade.me"
           REMOTE_USER: "ubuntu"
-          TARGET: "/home/ubuntu/postcoderoonie/postcoderoonie/"
-          EXCLUDE: "/dist/, /node_modules/"
+          TARGET: "/home/ubuntu/test/"
