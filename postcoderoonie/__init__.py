@@ -1,18 +1,3 @@
-#test deploy
-#test
-#test
-#test
-#test
-#test
-#test
-#test
-#test
-#test
-#test
-#test
-#test
-#test
-
 import datetime
 
 from flask_migrate import Migrate
@@ -39,7 +24,7 @@ def create_app(test_config=None):
 
     with app.app_context() as app_cont:
 
-        if test_config is None:
+        if test_config is None and os.environ.get("APP", False):
             # load the instance config, if it exists, when not testing
             app.config.from_object(DevelopmentConfig)
         else:
