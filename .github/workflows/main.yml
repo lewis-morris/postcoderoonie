@@ -16,4 +16,3 @@ jobs:
           REMOTE_HOST: "thecomputermade.me"
           REMOTE_USER: "ubuntu"
           TARGET: "/home/ubuntu/postcoderoonie/postcoderoonie/"
-          EXCLUDE: "/dist/, /node_modules/"
